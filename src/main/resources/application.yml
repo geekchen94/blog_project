@@ -1,0 +1,17 @@
+spring:
+  thymeleaf:
+    mode: HTML
+    encoding: UTF-8
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+
+  resources:
+    static-locations: classpath:/static/
+
+  profiles:
+    active: dev
+
+comment.avatar: /images/评论回复头像.jpg        #默认评论头像
+message.avatar: /images/评论回复头像.jpg        #默认评论头像
+

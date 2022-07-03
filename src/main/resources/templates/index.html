@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>首页</title>
+    <link href="../static/images/favicon.ico" th:href="@{/images/favicon.ico}" rel="icon" type="image/x-ico">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="../static/css/MyDef.css" th:href="@{/css/MyDef.css}">
+</head>
+<body>
+
+    <!--导航-->
+    <nav th:replace="_fragments :: menu(1)" class="gird-header">
+        <div class="ui container">
+            <div class="ui inverted secondary stackable menu">
+                <h2 class="ui green header item" style="font-family: STSong">提百万的峡谷日志</h2>
+                <!--<div class="right m-item item m-mobile-hide">-->
+                <a href="#" th:href="@{/}" class="active m-item item m-mobile-hide "><i class="home icon"></i>首页</a>
+                <a href="#" th:href="@{/types/-1}" class="m-item item m-mobile-hide"><i class="clone outline icon"></i>分类</a>
+                <a href="#" th:href="@{/tags/-1}" class = "m-item item m-mobile-hide"><i class = "tags icon"></i>标签</a>
+                <a href="#" th:href="@{/archives}" class="m-item item m-mobile-hide"><i class="clock icon"></i>时间轴</a>
+                <a href="#" th:href="@{/message}" class="m-item item m-mobile-hide"><i class="book icon"></i>留言板</a>
+                <a href="#" th:href="@{/about}" class="m-item item m-mobile-hide"><i class="info icon"></i>关于我</a>
+                <!--</div>-->
+                <div class="right m-item item m-mobile-hide">
+                    <form name="search" action="#" th:action="@{/search}" method="post" target="_blank">
+                        <div class="ui icon transparent input m-margin-tb-tiny" style="color: white">
+                            <input style="color: white" type="text" name="query" placeholder="Search...." th:value="${query}">
+                            <i onclick="document.forms['search'].submit()" class="search link icon"></i>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show m-opacity-tiny">
+            <i class="sidebar icon"></i>
+        </a>
+    </nav>
+
+    <!--中间内容-->
+    <div class="m-container m-padded-tb-big">
+        <div class="ui container">
+            <div class="ui stackable grid">
+                <!--左边博客列表-->
+                <div class="eleven wide column">
+                    <!--header,头部,attached:拼接-->
+                    <div class="ui top attached segment m-rgba-white">
+                        <div class="ui middle aligned two column grid">  <!--垂直居中-->
+                            <div class="column">
+                               <h3 class="ui green header">博客</h3>
+                            </div>
+                            <div class="right aligned column">   <!--靠右-->
+                                共<h2 class="ui orange header m-inline-block m-text-thin" th:text="${page.totalElements}"> 14 </h2>篇
+                            </div>
+                        </div>
+                    </div>
+                    <!--content，主页内容部分,attached:拼接-->
+                    <div class="ui attached segment m-rgba-white">
+                        <div class="ui padded vertical segment m-padded-tb-big m-padded-lr-clear" th:each="blog : ${page.content}">
+                            <div class="ui middle aligned mobile reversed stackable grid">
+                                <!--博客文章内容-->
+                                <div class="eleven wide column">
+                                    <h3 class="ui header"><a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="m-black" th:text="${blog.title}">操作系统</a></h3>           <!--博文标题-->
+                                    <p class="m-text"><a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="m-black" th:text="|${blog.description}......|">操作系统（Operating System，OS）是指控制和管理整个计算机系统的硬件和软件资源，并合理地组织调度计算机的工作和资源的分配，以提供给用户和其他软件方便的接口和环境的程序集合。</a></p>
+                                    <div class="ui stackable grid">
+                                        <div class="eleven wide column">
+                                            <div class="ui horizontal link list">
+                                                <div class="item">
+                                                    <img src="../static/images/提莫.jpg" th:src="@{${blog.user.avatar}}" alt="" class="ui avatar image">  <!--头像-->
+                                                    <div class="content">    <!--名字-->
+                                                        <a href="header" th:href="@{/about}" th:text="${blog.user.nickname}">
+                                                            逆命丶
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="item">       <!--发表时间-->
+                                                    <i class="calendar icon"></i><span class="middle aligned" th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2018-09-01</span>
+                                                </div>
+                                                <div class="item">       <!--浏览次数-->
+                                                    <i class="eye icon"></i><span class="middle aligned" th:text="${blog.views}">9999</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="right aligned five wide column">
+                                            <a href="#" th:href="@{/types/{id}(id=${blog.type.id})}" target="_blank" class="ui green basic m-padded-tiny m-text-thin label" th:text="${blog.type.name}">认知升级</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--博客中的图片-->
+                                <div class="five wide column">
+                                    <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank">
+                                        <img src="../static/images/timo.jpg" th:src="@{${blog.firstPicture}}" alt="" class="ui rounded image">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--底部功能区，翻页，attached:拼接-->
+                    <div class="ui bottom attached segment m-rgba-white" th:if="${page.totalPages}>1">
+                        <div class="ui middle aligned two column grid">  <!--垂直居中-->
+                            <div class="column">
+                                <a href="#" th:href="@{/(page=${page.number}-1)}" th:unless="${page.first}" class="ui mini green basic button">上一页</a>
+                            </div>
+                            <div class="right aligned column">   <!--靠右-->
+                                <a href="#" th:href="@{/(page=${page.number}+1)}" th:unless="${page.last}" class="ui mini green basic button">下一页</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--右边的top-->
+                <div class="five wide column">
+                    <!--分类-->
+                    <div class="ui segments">
+                        <div class="ui secondary segment m-rgba-white">
+                            <div class="ui two column grid">
+                                <div class="column">
+                                    <i class = "list icon"></i>分类
+                                </div>
+                                <div class="right aligned column">
+                                    <a href="#" th:href="@{/types/-1}" target="_blank" class="m-black">更多<i class = "angle double right icon"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui segment m-rgba-white">
+                            <div class="ui fluid vertical menu m-rgba-white">  <!--fluid 填充-->
+                                <a href="#" th:href="@{/types/{id}(id=${type.id})}" target="_blank" class = "item" th:each="type : ${types}">
+                                    <span th:text="${type.name}">学习日志</span>
+                                    <div class="ui green basic left pointing label" th:text="${#arrays.length(type.blogs)}">13</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--标签-->
+                    <div class="ui segments m-margin-large">
+                        <div class="ui secondary segment m-rgba-white">
+                            <div class="ui two column grid">
+                                <div class="column">
+                                    <i class = "tags icon"></i>标签
+                                </div>
+                                <div class="right aligned column">
+                                    <a href="#" th:href="@{/tags/-1}" target="_blank" class="m-black">更多<i class = "angle double right icon"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="ui segment m-rgba-white">
+                                <a href="#" th:href="@{/tags/{id}(id=${tag.id})}" target="_blank" class="ui green basic left pointing label m-margin-tb-tiny" th:each="tag : ${tags}">
+                                    <span th:text="${tag.name}">方法论</span>
+                                    <div class="detail" th:text="${#arrays.length(tag.blogs)}">
+                                        23
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    <!--最新推荐-->
+                    <div class="ui segments m-margin-large">
+                        <div class="ui secondary segment m-rgba-white">
+                            <i class = "bookmark icon"></i>最新推荐
+                        </div>
+                        <div class="ui segment m-rgba-white" th:each="blog : ${recommendBlogs}">
+                            <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="m-black m-text-thin" th:text="${blog.title}">数据结构</a>
+                        </div>
+                    </div>
+                    <!--二维码-->
+                    <h4 class="ui horizontal divider header m-margin-large">扫码关注</h4>
+                    <div class="ui centered card" style="width: 10em">
+                        <img src="../static/images/微信公众号.jpg" th:src="@{/images/微信公众号.jpg}" alt="" class="ui rounded image" >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <!--底部footer-->
+    <footer th:replace="_fragments :: footer" class ="ui inverted vertical segment m-padded-tb-massive m-rgba">
+        <div class="ui center aligned container">
+            <div class="ui inverted divided stackable grid">
+                <div class = "three wide column">
+                    <div class ="ui inverted link list">
+                        <div class="item">
+                            <img src="../static/images/微信公众号.jpg" th:src="@{/images/微信公众号.jpg}" class="ui rounded image" alt="" style="width: 110px">
+                        </div>
+                    </div>
+                </div>
+                <div class = "three wide column">
+                    <h4 class ="ui inverted header">最新博客</h4>
+                    <div id="newblog-container">
+                        <div class ="ui inverted link list" th:fragment="newblogList">
+                            <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item m-text-thin" th:each="blog : ${newblogs}" th:text="${blog.title}">操作系统</a>
+                        </div>
+                    </div>
+                </div>
+                <div class = "three wide column">
+                    <h4 class ="ui inverted header">联系我</h4>
+                    <div class ="ui inverted link list">
+                        <a href="#" class="item">Email:xxxxxxxxxx@qq.com</a>
+                        <a href="#" class="item">用户故事（User Story）</a>
+                        <a href="#" class="item">用户故事（User Story）</a>
+                    </div>
+                </div>
+                <div class = "seven wide column">
+                    <h4 class="ui inverted header">Blog</h4>
+                    <p>个人博客，基于spring boot，用于练手</p>
+                </div>
+            </div>
+            <div class="ui inverted section divider"></div>
+            <p class="m-text-thin m-text-spaced m-opacity-tiny">版权所有，盗版必究</p>
+        </div>
+    </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+
+<script>      //移动端点击展示导航栏按钮
+   $('.menu.toggle').click(function () {
+       $('.m-item').toggleClass('m-mobile-hide');
+   });
+
+$('#newblog-container').load(/*[[@{/footer/newblog}]]*/"/footer/newblog");
+</script>
+
+</body>
+</html>

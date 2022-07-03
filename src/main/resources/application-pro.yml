@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=UTF-8&useOldAliasMetadataBehavior=true&autoReconnect=true&serverTimezone=UTC&useSSL=false
+    username: xxx
+    password: xxxxxxxx
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect    #修改mysql默认引擎为InnoDB
+
+logging:
+  level:
+    root: warn
+    com.czy.blog: info
+  file: log/blog-pro.log
+
+
+
+
+
+

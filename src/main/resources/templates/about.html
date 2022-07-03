@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>关于我</title>
+    <link href="../static/images/favicon.ico" th:href="@{/images/favicon.ico}" rel="icon" type="image/x-ico">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="../static/css/MyDef.css" th:href="@{/css/MyDef.css}">
+</head>
+<body>
+
+    <!--导航-->
+    <nav th:replace="_fragments :: menu(6)" class="gird-header">
+        <div class="ui container">
+            <div class="ui inverted secondary stackable menu">
+                <h2 class="ui green header item" style="font-family: STSong">提百万的博客</h2>
+                <!--<div class="right m-item item m-mobile-hide">-->
+                <a href="#" th:href="@{/}" class="m-item item m-mobile-hide "><i class="home icon"></i>首页</a>
+                <a href="#" th:href="@{/types/-1}" class="m-item item m-mobile-hide"><i class="clone outline icon"></i>分类</a>
+                <a href="#" th:href="@{/tags/-1}" class = "m-item item m-mobile-hide"><i class = "tags icon"></i>标签</a>
+                <a href="#" th:href="@{/archives}" class="m-item item m-mobile-hide"><i class="clock icon"></i>时间轴</a>
+                <a href="#" th:href="@{/message}" class="m-item item m-mobile-hide"><i class="book icon"></i>留言板</a>
+                <a href="#" th:href="@{/about}" class="active m-item item m-mobile-hide"><i class="info icon"></i>关于我</a>
+                <!--</div>-->
+                <div class="right m-item item m-mobile-hide">
+                    <form name="search" action="#" th:action="@{/search}" method="post" target="_blank">
+                        <div class="ui icon transparent input m-margin-tb-tiny" style="color: white">
+                            <input style="color: white" type="text" name="query" placeholder="Search...." th:value="${query}">
+                            <i onclick="document.forms['search'].submit()" class="search link icon"></i>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+            <i class="sidebar icon"></i>
+        </a>
+    </nav>
+
+    <!--中间内容-->
+    <div class="m-container m-padded-tb-large">
+        <div class="ui container">
+            <div class="ui stackable grid">
+                <div class="eleven wide column">
+                    <div class="ui segment m-rgba-white">
+                        <img src="../static/images/timo.jpg" th:src="@{/images/timo.jpg}" alt="" class="ui rounded image">
+                    </div>
+                </div>
+                <div class="five wide column">
+                    <div class="ui top attached segment">
+                        <div class="ui header">关于我</div>
+                    </div>
+                    <div class="ui attached segment">
+                        <p class="m-text">提百万，哈尔滨工程大学本硕，热爱编程，热爱英雄联盟，爱折腾，极客精神十足。</p>
+                    </div>
+                    <div class="ui attached segment">
+                        <div class="ui red label m-margin-tb-tiny">运动</div>
+                        <div class="ui orange label m-margin-tb-tiny">编程</div>
+                        <div class="ui yellow label m-margin-tb-tiny">LOL</div>
+                        <div class="ui green label m-margin-tb-tiny">电影</div>
+                        <div class="ui blue label m-margin-tb-tiny">音乐</div>
+                    </div>
+                    <div class="ui attached segment">
+                        <div class="ui red label m-margin-tb-tiny">java</div>
+                        <div class="ui orange label m-margin-tb-tiny">python</div>
+                        <div class="ui yellow label m-margin-tb-tiny">深度学习</div>
+                        <div class="ui green label m-margin-tb-tiny">自然语言处理</div>
+                        <div class="ui blue label m-margin-tb-tiny">spring boot</div>
+                    </div>
+                    <div class="ui bottom attached segment">
+                        <a href="https://github.com/geekchen94" target="_blank" class="ui circular icon button"><i class="github icon"></i> </a>
+                        <button id="WeixinButton" class="ui circular icon button"><i class="weixin icon"></i></button>
+                        <!--微信二维码-->
+                        <div class="ui myWeixin flowing popup transition hidden">
+                            <div class="ui images" style="font-size: inherit !important;">
+                                <img src="../static/images/微信公众号.jpg" th:src="@{/images/微信公众号.jpg}" alt="" class="ui rounded image" style="width: 120px">
+                            </div>
+                        </div>
+                        <button id="QQButton" class="ui circular icon button"><i class="qq icon"></i></button>
+                        <!--QQ二维码-->
+                        <div class="ui myQQ flowing popup transition hidden">
+                            <div class="ui images" style="font-size: inherit !important;">
+                                <img src="../static/images/qq二维码.jpg" th:src="@{/images/qq二维码.jpg}" alt="" class="ui rounded image" style="width: 120px">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--底部footer-->
+    <footer th:replace="_fragments :: footer" class ="ui inverted vertical segment m-padded-tb-massive">
+        <div class="ui center aligned container">
+            <div class="ui inverted divided stackable grid">
+                <div class = "three wide column">
+                    <div class ="ui inverted link list">
+                        <div class="item">
+                            <img src="../static/images/微信公众号.jpg" th:src="@{/images/微信公众号.jpg}" class="ui rounded image" alt="" style="width: 110px">
+                        </div>
+                    </div>
+                </div>
+                <div class = "three wide column">
+                    <h4 class ="ui inverted header">最新博客</h4>
+                    <div class ="ui inverted link list">
+                        <a href="#" class="item">操作系统</a>
+                    </div>
+                </div>
+                <div class = "three wide column">
+                    <h4 class ="ui inverted header">联系我</h4>
+                    <div class ="ui inverted link list">
+                        <a href="#" class="item">Email:xxxxxxxxxx@qq.com</a>
+                    </div>
+                </div>
+                <div class = "seven wide column">
+                    <h4 class="ui inverted header">Blog</h4>
+                    <p>个人博客，基于spring boot，用于练手</p>
+                </div>
+            </div>
+            <div class="ui inverted section divider"></div>
+            <p class="m-text-thin m-text-spaced m-opacity-tiny">版权所有，盗版必究</p>
+        </div>
+    </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+<script >      //移动端点击展示导航栏按钮
+   $('.menu.toggle').click(function () {
+       $('.m-item').toggleClass('m-mobile-hide');
+   });
+    $('#WeixinButton').popup({
+        popup: $('.myWeixin.popup'),
+        on : 'click',
+        position:'bottom center'
+    });
+    $('#QQButton').popup({
+        popup: $('.myQQ.popup'),
+        on : 'click',
+        position:'bottom center'
+    });
+$('#newblog-container').load(/*[[@{/footer/newblog}]]*/"/footer/newblog");
+</script>
+
+</body>
+</html>
